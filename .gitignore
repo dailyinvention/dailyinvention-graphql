@@ -1,2 +1,5 @@
 node_modules/
 .AppleDouble/
+.vscode/
+.user_credentials.js
+npm-debug.log

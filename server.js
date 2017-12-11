@@ -1,6 +1,7 @@
-var express = require('express')
-var graphqlHTTP = require('express-graphql')
-var { buildSchema } = require('graphql')
+import express from 'express'
+import graphqlHTTP from 'express-graphql'
+import buildSchema from 'graphql'
+import credentials from './.user_credentials'
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
