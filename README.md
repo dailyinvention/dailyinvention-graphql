@@ -1,4 +1,4 @@
 # dailyinvention-graphql
 ==============
 
-Graphql setup for dailyinvention.com.  Plugs into Wordpress API.
+Graphql setup for dailyinvention.com.  Plugs into Wordpress MySQL database.
