@@ -12,7 +12,9 @@ const PostType = new GraphQLObjectType({
   name: 'Post',
   fields: {
     ID: {type: GraphQLInt},
-    post_status: {type: GraphQLString}
+    post_status: {type: GraphQLString},
+    post_title: {type: GraphQLString},
+    post_content: {type: GraphQLString}
   }
 })
 
@@ -35,8 +37,18 @@ const Query = new GraphQLObjectType({
     },
     posts: {
       type: new GraphQLList(PostType),
+      args: {
+        post_status: {type: GraphQLString},
+        limit: {type: GraphQLInt}
+      },
       resolve(parentValue, args) {
-        return customers
+        let post_status_query = (args.post_status) ? ' WHERE post_status="' + args.post_status + '"' : ''
+        let limit = (args.limit) ? ' LIMIT ' + args.limit : ''
+        // Query database and return post by id
+        return db.query('SELECT * FROM wp_posts' + post_status_query + limit + ';').then(results => {
+          let newResults = JSON.parse(JSON.stringify(results))
+          return newResults
+        })
       }
     }
   }
