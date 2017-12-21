@@ -39,13 +39,15 @@ const Query = new GraphQLObjectType({
       type: new GraphQLList(PostType),
       args: {
         post_status: {type: GraphQLString},
-        limit: {type: GraphQLInt}
+        limit: {type: GraphQLInt},
+        greater_than: {type: GraphQLInt}
       },
       resolve(parentValue, args) {
         let post_status_query = (args.post_status) ? ' WHERE post_status="' + args.post_status + '"' : ''
+        let greater_than = (args.greater_than) ? ' AND ID > ' + args.greater_than : ''
         let limit = (args.limit) ? ' LIMIT ' + args.limit : ''
         // Query database and return post by id
-        return db.query('SELECT * FROM wp_posts' + post_status_query + limit + ';').then(results => {
+        return db.query('SELECT * FROM wp_posts' + post_status_query + greater_than + limit + ';').then(results => {
           let newResults = JSON.parse(JSON.stringify(results))
           return newResults
         })
